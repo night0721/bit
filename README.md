@@ -7,6 +7,7 @@
 Each commit is treated as a block in the chain, containing hashes of diffs and the references to parent commits.
 It ensures the repository history is immutable, preventing unnoticable malicious modification through historical commits.
 
+[SHA256 Implementation](https://github.com/ilvn/SHA256)
 # Concept
 
 **With high regards to [Martin](https://github.com/wmartinmimi)**
