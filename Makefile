@@ -1,24 +1,23 @@
 .POSIX:
-.SUFFIXES:
 
 VERSION = 1.0
 TARGET = bit
 PREFIX ?= /usr/local
 BINDIR = $(PREFIX)/bin
 
-CFLAGS = -Os -march=native -mtune=native -pipe -s -std=c99 -flto -pedantic -Wall -lm -D_DEFAULT_SOURCE
+CFLAGS += -std=c99 -pedantic -Wall -lm -D_DEFAULT_SOURCE
 
-SRC = $(TARGET).c
+.c.o:
+	$(CC) -o $@ $(CFLAGS) -c $<
 
-$(TARGET): $(SRC)
-	$(CC) $(SRC) -o $@ $(CFLAGS)
+$(TARGET): $(TARGET).o
+	$(CC) -o $@ $(TARGET).o
 
 dist:
 	mkdir -p $(TARGET)-$(VERSION)
 	cp -R README.md $(TARGET) $(TARGET)-$(VERSION)
-	tar -cf $(TARGET)-$(VERSION).tar $(TARGET)-$(VERSION)
-	gzip $(TARGET)-$(VERSION).tar
-	rm -rf $(TARGET)-$(VERSION)
+	tar -czf $(TARGET)-$(VERSION).tar.gz $(TARGET)-$(VERSION)
+	$(RM) -r $(TARGET)-$(VERSION)
 
 install: $(TARGET)
 	mkdir -p $(DESTDIR)$(BINDIR)
@@ -26,10 +25,10 @@ install: $(TARGET)
 	chmod 755 $(DESTDIR)$(BINDIR)/$(TARGET)
 
 uninstall:
-	rm $(DESTDIR)$(BINDIR)/$(TARGET)
+	$(RM) $(DESTDIR)$(BINDIR)/$(TARGET)
 
 clean:
-	rm $(TARGET)
+	$(RM) $(TARGET) *.o
 
 all: $(TARGET)
 
