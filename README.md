@@ -21,7 +21,7 @@ It ensures the repository history is immutable, preventing unnoticable malicious
   People who cloned the repository will also have a copy of the blockchain,
   allowing people to validate commits and ensure they belong to the original repository in a distributed network.
 
-# Disadvantages
+## Disadvantages
 - Performance
   As a trade-off to immutability, any rebasing of large amount of commits will result in high amount of hash calculation.
 
